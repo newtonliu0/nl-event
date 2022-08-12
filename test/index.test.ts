@@ -94,4 +94,24 @@ describe('Test of EventTarget', (): void => {
             done();
         });
     });
+
+    it('Get data from event', (done): void => {
+        const event = new Event('test');
+        event.data = 1;
+        const eventTargetTest = new EventTargetTest();
+        eventTargetTest.addEventListener('test', (event): void => {
+            expect(event.data).to.be.equal(1);
+            done();
+        });
+        eventTargetTest.dispatchEvent(event);
+    });
+
+    it('The value "this" in callback function should point to an instance of EventTarget', (done): void => {
+        const eventTargetTest = new EventTargetTest();
+        eventTargetTest.addEventListener('test', function(): void {
+            expect(this).to.be.equal(eventTargetTest);
+            done();
+        });
+        eventTargetTest.dispatchEvent(new Event('test'));
+    });
 });

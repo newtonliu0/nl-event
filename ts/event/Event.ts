@@ -2,6 +2,7 @@ class Event {
     public readonly type: string | symbol;
     private _currentTarget: unknown = null;
     private _target: unknown = null;
+    private _data: unknown = null;
 
     constructor(type: string | symbol) {
         this.type = type;
@@ -13,6 +14,14 @@ class Event {
 
     public get target(): unknown {
         return this._target;
+    }
+
+    public get data(): unknown {
+        return this._data;
+    }
+
+    public set data(data: unknown) {
+        this._data = data;
     }
 
     public clone(): Event {
